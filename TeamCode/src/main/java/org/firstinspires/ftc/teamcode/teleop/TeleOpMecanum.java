@@ -173,6 +173,7 @@ public class TeleOpMecanum extends OpMode {
                 public void invoke()
                 {
                     flicker.stop();
+		    flicker.setLoadPosition();
                 }
             };
 
