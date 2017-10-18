@@ -11,30 +11,45 @@ import org.firstinspires.ftc.teamcode.util.ramp.*;
 import java.io.*;
 import com.google.gson.*;
 import com.google.gson.annotations.*;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public abstract class AutonomousOpMode extends LinearOpMode
 {
+    Eye eye;
     MecanumDriveSystem driveSystem;
     LineFollowingSystem lineFollowingSystem;
     IMUSystem imuSystem;
+
     FlickerSystem flickerSystem;
     BallLiftSystem ballSystem;
     ColorSensorData colorSensorData;
+    Servo armRight;
+    Servo armLeft;
 
 
     void initializeAllDevices()
     {
+        this.eye = new Eye();
+        this.eye.init(this.hardwareMap);
         this.driveSystem = new MecanumDriveSystem();
         this.driveSystem.init(this.hardwareMap);
         this.imuSystem = new IMUSystem();
         this.imuSystem.init(this.hardwareMap);
+
         this.lineFollowingSystem = new LineFollowingSystem();
-//        this.lineFollowingSystem.init(this.hardwareMap);
+        this.lineFollowingSystem.init(this.hardwareMap);
         this.flickerSystem = new FlickerSystem(this.hardwareMap);
         this.ballSystem = new BallLiftSystem(this.hardwareMap);
+        this.armRight = hardwareMap.get(Servo.class, "armRight");
+        this.armLeft = hardwareMap.get(Servo.class, "armLeft");
     }
 
     //colorSide tells if the color of the line we are following is on the left or right of the sensor
+
+
+
+
+
     public void followColor(HueData hue, boolean followRightEdge)
     {
         double increment = .05;
@@ -70,11 +85,79 @@ public abstract class AutonomousOpMode extends LinearOpMode
     }
 
     void turn(double degrees, double maxPower)
+{
+    double heading = this.imuSystem.getHeading();
+    double targetHeading = 0;
+
+    targetHeading = heading + degrees;
+
+    if (targetHeading > 360)
+    {
+        targetHeading -= 360;
+    }
+    else if (targetHeading < 0)
+    {
+        targetHeading += 360;
+    }
+
+    this.driveSystem.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+    // Between 130 and 2 degrees away from the target
+    // we want to slow down from maxPower to 0.1
+    ExponentialRamp ramp = new ExponentialRamp(2.0, 0.1, 130.0, maxPower);
+
+    while (!isStopRequested() && Math.abs(computeDegrees(targetHeading, heading)) > 1)
+    {
+        telemetry.update();
+        double power = getTurnPower(ramp, targetHeading, heading);
+        telemetry.addLine("heading: " + heading);
+        telemetry.addLine("target heading: " + targetHeading);
+        telemetry.addLine("power: " + power);
+
+        this.driveSystem.tankDrive(power, -power);
+
+        try
+        {
+            sleep(50);
+        }
+        catch (Exception e)
+        {
+        }
+
+        heading = this.imuSystem.getHeading();
+    }
+
+    this.driveSystem.setPower(0);
+}
+
+    private double computeDegrees(double targetHeading, double heading)
+    {
+        double diff = targetHeading - heading;
+        //TODO: This needs to be commented. Also, might be able to compute using mod.
+        if (Math.abs(diff) > 180)
+        {
+            diff += (-360 * (diff / Math.abs(diff)));
+        }
+
+        return diff;
+    }
+
+    private double getTurnPower(Ramp ramp, double targetHeading, double heading)
+    {
+        double sign = 1.0;
+        double diff = computeDegrees(targetHeading, heading);
+        if (diff < 0)
+        {
+            sign = -1.0;
+            diff = -diff;
+        }
+
+        return sign*ramp.value(diff);
+    }
+
+    /*void turnTo(double targetHeading, double maxPower)
     {
         double heading = this.imuSystem.getHeading();
-        double targetHeading = 0;
-
-        targetHeading = heading + degrees;
 
         if (targetHeading > 360)
         {
@@ -113,38 +196,21 @@ public abstract class AutonomousOpMode extends LinearOpMode
         }
 
         this.driveSystem.setPower(0);
+    }*/
+
+    public void turnTo(double targetHeading, double maxPower) {
+        double currentHeading = this.imuSystem.getHeading();
+        double difference = computeDegrees(targetHeading, currentHeading);
+        turn(difference, maxPower);
     }
 
-    private double computeDegrees(double targetHeading, double heading)
+    public void driveToPositionRevs(int revs, double maxPower)
     {
-        double diff = targetHeading - heading;
-        //TODO: This needs to be commented. Also, might be able to compute using mod.
-        if (Math.abs(diff) > 180)
-        {
-            diff += (-360 * (diff / Math.abs(diff)));
-        }
-
-        return diff;
-    }
-
-    private double getTurnPower(Ramp ramp, double targetHeading, double heading)
-    {
-        double sign = 1.0;
-        double diff = computeDegrees(targetHeading, heading);
-        if (diff < 0)
-        {
-            sign = -1.0;
-            diff = -diff;
-        }
-
-        return sign*ramp.value(diff);
-    }
-
-    void driveToPositionRevs(double revolutions, double maxPower)
-    {
+        //double x = driveSystem.inchesToTicks((xMil / 25.4));
+        //double y = driveSystem.inchesToTicks((yMil / 25.4));
         double minPower = 0.1;
 
-        this.driveSystem.setTargetPositionRevs(revolutions);
+        this.driveSystem.setTargetPosition(revs);
 
         /*
             Create a Ramp that will map a distance in revolutions between 0.01 and 1.0
@@ -153,8 +219,12 @@ public abstract class AutonomousOpMode extends LinearOpMode
             will be set to maxPower, but when it gets within 1.0 revolutions, the power
             will be ramped down to minPower
         */
-        Ramp ramp = new ExponentialRamp(driveSystem.revolutionsToTicks(0.01), minPower,
-                                        driveSystem.revolutionsToTicks(1.0), maxPower);
+
+
+
+
+    Ramp ramp = new ExponentialRamp(driveSystem.revolutionsToTicks(0.01), minPower,
+            driveSystem.revolutionsToTicks(1.0), maxPower);
 
         // Wait until they are done
         driveSystem.setPower(maxPower);

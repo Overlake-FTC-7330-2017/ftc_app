@@ -37,13 +37,43 @@ public class IMUSystem
         this.imu.initialize(parameters);
 
         // Enable reporting of position using the naive integrator
-        imu.startAccelerationIntegration(new Position(), new Velocity(), 50); //TODO: Is the last parameter good?
+        imu.startAccelerationIntegration(new Position(), new Velocity(), 100); //TODO: Is the last parameter good?
+        //imu.startAccelerationIntegration(new Position(DistanceUnit.MM, imu.getLinearAcceleration().xAccel, imu.getLinearAcceleration().yAccel, 0, 1000), new Velocity(), 1000);
     }
 
-    public double getHeading()
-    {
+    public double getHeading() {
         Orientation orientation   = imu.getAngularOrientation().toAxesReference(AxesReference.INTRINSIC).toAxesOrder(AxesOrder.ZYX);
         return orientation.firstAngle;
+    }
+
+    public double getAngleOnPlaneX(){
+        Orientation orientation   = imu.getAngularOrientation().toAxesReference(AxesReference.INTRINSIC).toAxesOrder(AxesOrder.ZYX);
+        return orientation.thirdAngle;
+    }
+
+    public double getAngleOnPlaneY() {
+        Orientation orientation   = imu.getAngularOrientation().toAxesReference(AxesReference.INTRINSIC).toAxesOrder(AxesOrder.ZYX);
+        return orientation.secondAngle;
+    }
+
+    public double getLinearAccelerationX() {
+        Acceleration acceleration = imu.getAcceleration();
+        return acceleration.xAccel;
+    }
+
+    public double getLinearAccelerationY() {
+        Acceleration acceleration = imu.getAcceleration();
+        return acceleration.yAccel;
+    }
+
+    public double getLinearAceelerationZ() {
+        Acceleration acceleration = imu.getAcceleration();
+        return acceleration.zAccel;
+    }
+
+    public Position getPosition() {
+        Position position = imu.getPosition();
+        return position;
     }
 }
 

@@ -78,6 +78,7 @@ public class TeleOpMecanum extends OpMode {
 	@Override
 	public void init()
 	{
+
         driveSystem = new MecanumDriveSystem();
         this.driveSystem.init(this.hardwareMap);
         flicker = new FlickerSystem(this.hardwareMap);
@@ -167,9 +168,7 @@ public class TeleOpMecanum extends OpMode {
                     @Override
                     public void invoke()
                     {
-                        if (/*!flicker.isBallLoaded()*/true) {
-                            ballLift.runFlail(true);
-                        }
+                        //driveSystem.servoPravirsServo.setPosition(driveSystem.servoPravirsServo.getPosition() - 0.1);
                     }
                 };
         this.ballFlailFowardButton.releasedHandler =
@@ -200,7 +199,7 @@ public class TeleOpMecanum extends OpMode {
                     @Override
                     public void invoke()
                     {
-                        ballLift.runFlail(false);
+                        //driveSystem.servoPravirsServo.setPosition(driveSystem.servoPravirsServo.getPosition() - 0.1);
                     }
                 };
         this.ballFlailReverseButton.releasedHandler =
