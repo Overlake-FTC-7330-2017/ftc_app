@@ -18,15 +18,15 @@ import org.firstinspires.ftc.teamcode.util.Handler;
 
 @TeleOp(name="TeleOpPravir", group="TeleOp")
 public class TeleOpPravir extends OpMode {
-    /*private PravirsServo pravirsServo;
-    private TestMotor meMotor;
+    private PravirsServo pravirsServo;
+    //private TestMotor meMotor;
     private Button pravirButton;
     private Button doiButton;
     private Button motorButton;
 
     @Override
     public void init() {
-        meMotor = new TestMotor();
+        /*meMotor = new TestMotor();
         this.meMotor.init(this.hardwareMap);
         pravirsServo = new PravirsServo();
         this.pravirsServo.init(this.hardwareMap);
@@ -120,14 +120,14 @@ public class TeleOpPravir extends OpMode {
                     {
 
                     }
-                };
+                };*/
     }
     public void loop() {
         motorButton.testAndHandle();
 
-        telemetry.addLine(String.format("m:%d", meMotor.meMotor.getCurrentPosition()));
+        //telemetry.addLine(String.format("m:%d", meMotor.meMotor.getCurrentPosition()));
 
         doiButton.testAndHandle();
         pravirButton.testAndHandle();
-    }*/
+    }
 }
