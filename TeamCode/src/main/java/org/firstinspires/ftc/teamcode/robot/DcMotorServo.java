@@ -27,22 +27,18 @@ public class DcMotorServo
         return this.armPotentiometer.getVoltage();
     }
 
-    public void loop()
-    {
+    public void loop(double targetPosition) {
         double currentPosition = getCurrentPosition();
 
-        if (this.targetPosition > currentPosition)
-        {
-            this.motor.setPower(adjustedPower(currentPosition, this.targetPosition, this.forwardPower));
+        if (targetPosition > currentPosition) {
+            this.motor.setPower(adjustedPower(currentPosition, targetPosition, this.forwardPower));
         }
-        else
-        {
-            this.motor.setPower(adjustedPower(currentPosition, this.targetPosition, this.reversePower));
+        else {
+            this.motor.setPower(adjustedPower(currentPosition, targetPosition, this.reversePower));
         }
     }
 
-    double adjustedPower(double currentPos, double targetPos, double maxPower)
-    {
+    double adjustedPower(double currentPos, double targetPos, double maxPower) {
         double delta = targetPos - currentPos;
         double absDelta = Math.abs(delta);
         if (delta < 0)

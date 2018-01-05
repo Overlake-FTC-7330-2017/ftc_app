@@ -61,7 +61,7 @@ public class ElevatorSystem {
         //On Rev, when configuring use the second input in digital
         touchSensorBottom.setMode(DigitalChannel.Mode.INPUT);
 
-        while(touchSensorBottom.getState()==true) {
+        while(touchSensorBottom.getState() == true) {
             telemetry.addData("touch Sensor" , touchSensorBottom.getState());
             elevator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             //elevator.setPower(-0.3);

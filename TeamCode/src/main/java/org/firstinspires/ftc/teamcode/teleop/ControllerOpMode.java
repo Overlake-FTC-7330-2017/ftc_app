@@ -3,10 +3,8 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Func;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.robot.*;
 import org.firstinspires.ftc.teamcode.util.Handler;
 
@@ -17,12 +15,17 @@ import org.firstinspires.ftc.teamcode.util.Handler;
 public class ControllerOpMode extends OpMode {
     private ClawSystem claw;
     private ElevatorSystem elevator;
-    private ParellelLiftSystem lifter;
+    private ParallelLiftSystem lifter;
 
 
     private Button clawLoadPosition;
     private Button clawReleasePosition;
     private Button clawPinchPosition;
+    private Button parallelBottom;
+    private Button parallelMiddle;
+    private Button parallelTop;
+
+
     private Button clawIncrement;
     public Button clawDecrement;
 
@@ -66,6 +69,9 @@ public class ControllerOpMode extends OpMode {
                     @Override
                     public Boolean value()
                     {
+                        if(gamepad2.right_trigger > 0.25 && gamepad2.right_trigger < 0.5) {
+
+                        }
                         return gamepad2.right_trigger>0.75 && !gamepad2.left_bumper;
                     }
                 };
@@ -225,6 +231,64 @@ public class ControllerOpMode extends OpMode {
                     }
                 };
 
+        this.parallelBottom = new Button();
+        this.parallelBottom.isPressed =
+                new Func<Boolean>()
+                {
+                    @Override
+                    public Boolean value()
+                    {
+                        return gamepad1.dpad_down;
+                    }
+                };
+        this.parallelBottom.pressedHandler =
+                new Handler()
+                {
+                    @Override
+                    public void invoke()
+                    {
+                        lifter.goToBottom();
+                    }
+                };
+
+        this.parallelMiddle = new Button();
+        this.parallelMiddle.isPressed =
+                new Func<Boolean>()
+                {
+                    @Override
+                    public Boolean value()
+                    {
+                        return gamepad1.dpad_right;
+                    }
+                };
+        this.parallelMiddle.pressedHandler =
+                new Handler()
+                {
+                    @Override
+                    public void invoke()
+                    {
+                        lifter.goToMiddle();
+                    }
+                };
+        this.parallelTop = new Button();
+        this.parallelTop.isPressed =
+                new Func<Boolean>()
+                {
+                    @Override
+                    public Boolean value()
+                    {
+                        return gamepad1.dpad_up;
+                    }
+                };
+        this.parallelTop.pressedHandler =
+                new Handler()
+                {
+                    @Override
+                    public void invoke()
+                    {
+                        lifter.goToTop();
+                    }
+                };
 
 
         //ELEVATOR
@@ -453,13 +517,17 @@ public class ControllerOpMode extends OpMode {
         clawLoadPosition.testAndHandle();
         clawReleasePosition.testAndHandle();
         clawPinchPosition.testAndHandle();
+
+
         clawSetReleasePosition.testAndHandle();
         clawSetLoadPosition.testAndHandle();
         clawSetPinchPosition.testAndHandle();
         clawDecrement.testAndHandle();
         clawIncrement.testAndHandle();
 
-
+        parallelBottom.testAndHandle();
+        parallelMiddle.testAndHandle();
+        parallelTop.testAndHandle();
 
         elevator.checkForBottom(telemetry);
         elevator.checkForTop();
