@@ -140,11 +140,15 @@ public class MecanumDriveSystem extends System
         }
     }
 
-    public void driveGodMode(double rightX, float rightY, float leftX, float leftY) {
+    public void driveGodMode(float rightX, float rightY, float leftX, float leftY) {
         driveGodMode(rightX, rightY, leftX, leftY, 1);
     }
 
-    public void driveGodMode(double rightX, float rightY, float leftX, float leftY, float coeff) {
+    public void driveGodMode(float rightX, float rightY, float leftX, float leftY, float coeff) {
+        rightX = scaleJoystickValue(rightX);
+        leftX = scaleJoystickValue(leftX);
+        leftY = scaleJoystickValue(leftY);
+
         double currentHeading = Math.toRadians(imuSystem.getHeading());
         double headingDiff = initialHeading - currentHeading;
 
@@ -160,13 +164,18 @@ public class MecanumDriveSystem extends System
         double backLeft = y - changeOfDirectionSpeed - x;
         double backRight = y + changeOfDirectionSpeed + x;
 
-        List<Double> powers = Arrays.asList(frontLeft, frontRight, backLeft, backRight);
-        clampPowers(powers);
+//        List<Double> powers = Arrays.asList(frontLeft, frontRight, backLeft, backRight);
+//        clampPowers(powers);
 
-        motorFrontLeft.setPower(powers.get(0));
-        motorFrontRight.setPower(powers.get(1));
-        motorBackLeft.setPower(powers.get(2));
-        motorBackRight.setPower(powers.get(3));
+        this.motorFrontRight.setPower(Range.clip(frontRight, -1, 1));
+        this.motorBackRight.setPower(Range.clip(backRight, -1, 1));
+        this.motorFrontLeft.setPower(Range.clip(frontLeft - leftX, -1, 1));
+        this.motorBackLeft.setPower(Range.clip(backLeft + leftX, -1, 1));
+
+//        motorFrontLeft.setPower(powers.get(0));
+//        motorFrontRight.setPower(powers.get(1));
+//        motorBackLeft.setPower(powers.get(2));
+//        motorBackRight.setPower(powers.get(3));
     }
 
     public void resetInitialHeading() {

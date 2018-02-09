@@ -169,9 +169,6 @@ public class ParallelLiftSystem extends System {
                 parallelMotor.setPower(power);
                 position = bottom + 250;
             }
-
-            
-
         }
 
         public void goToMiddle() {
