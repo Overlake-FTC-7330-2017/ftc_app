@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.robot.systems.MecanumDriveSystem;
 import org.firstinspires.ftc.teamcode.robot.systems.ParallelLiftSystem;
 import org.firstinspires.ftc.teamcode.robot.systems.PixySystem;
 import org.firstinspires.ftc.teamcode.util.config.ConfigParser;
+import org.firstinspires.ftc.teamcode.util.logger.Logger;
 
 /**
  * Created by EvanCoulson on 10/11/17.
@@ -24,10 +25,11 @@ public abstract class BaseOpMode extends LinearOpMode {
     public PixySystem pixySystem;
     public ClawSystemNoMergeConflictPlease claw;
     public ParallelLiftSystem parallelLiftSystem;
+    public Logger logger;
 
     public BaseOpMode(String opModeName) {
         config = new ConfigParser(opModeName + ".omc");
-        telemetry.setMsTransmissionInterval(200);
+        this.logger = new Logger(opModeName);
     }
 
     protected void initSystems() {

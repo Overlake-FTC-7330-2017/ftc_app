@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.robot.components;
  * Created by EvanCoulson on 1/9/18.
  */
 
-public class Gear {
+public class Gear extends Component {
     private double teeth;
     public Gear next;
 
@@ -13,6 +13,7 @@ public class Gear {
     }
 
     public Gear(double teeth, Gear next) {
+        super("Gear");
         this.next = next;
         this.teeth = teeth;
     }

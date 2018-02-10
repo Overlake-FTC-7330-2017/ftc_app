@@ -28,8 +28,7 @@ public abstract class BaseOpMode extends OpMode {
 
 
     public BaseOpMode(String opModeName) {
-        this.logger = new Logger(this, opModeName);
-        logger.setLoggingServices(LoggingService.FILE);
+        this.logger = new Logger(opModeName);
         this.config = new ConfigParser(opModeName + ".omc");
     }
 

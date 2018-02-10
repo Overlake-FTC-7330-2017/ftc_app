@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.robot.components;
  * Created by EvanCoulson on 9/26/17.
  */
 
-public class GearChain {
+public class GearChain extends Component {
     public final static int NEVEREST20_PULSES = 960;
     public final static int NEVEREST40_PULSES = 1120;
     public final static int NEVEREST60_PULSES = 1680;
@@ -13,6 +13,7 @@ public class GearChain {
     private double chainRatio;
 
     public GearChain(double... allTeeth) {
+        super("Gear Chain");
         input = new Gear(allTeeth[0]);
         Gear current = input;
         for (int i = 1; i < allTeeth.length; i++) {

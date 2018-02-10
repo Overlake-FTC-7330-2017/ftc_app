@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.util.ramp.Ramp;
  * Created by EvanCoulson on 10/9/17.
  */
 
-public class GearedMotor {
+public class GearedMotor extends Component {
     public final static double MIN_POWER = 0.1d;
     public final static double FOWARD_DIRECTION = 1d;
     public final static double BACKWARD_DIRECTION = -1d;
@@ -30,6 +30,7 @@ public class GearedMotor {
     }
 
     public GearedMotor(int pulses, double wheelDiameter, DcMotor motor, double... teeth) {
+        super("Geared Motor");
         this.chain = new GearChain(teeth);
         this.pulses = pulses;
         this.wheelDiameter = wheelDiameter;

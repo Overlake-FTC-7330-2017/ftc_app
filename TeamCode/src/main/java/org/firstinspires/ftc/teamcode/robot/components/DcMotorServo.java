@@ -24,8 +24,7 @@ import java.io.IOException;
 import java.util.Date;
 
 // Combines a DcMotor and a Potentiometer into make a servo
-public class DcMotorServo
-{
+public class DcMotorServo extends Component {
     private DcMotor motor;
     private AnalogInput armPotentiometer;
     public double targetPosition;
@@ -49,6 +48,10 @@ public class DcMotorServo
     double finalPow;
 
     Telemetry.Item powerTelemetryItem;
+
+    public DcMotorServo() {
+        super("DcMotorServo");
+    }
 
     public void init(HardwareMap hardwareMap, String motorName, String potentiometerName, Telemetry telemetry) {
         this.telemetry = telemetry;

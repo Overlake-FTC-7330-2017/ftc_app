@@ -12,6 +12,8 @@ import org.firstinspires.ftc.teamcode.util.logger.Logger;
  * Created by EvanCoulson on 11/3/17.
  */
 
+
+// LEFT BUMPER RESERVED AS THE SHIFT KEY
 public class Controller {
     public Gamepad gamepad;
 

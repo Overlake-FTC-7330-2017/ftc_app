@@ -29,15 +29,7 @@ public abstract class System {
         this.fileName = system + ".omc";
         this.telemetry = opMode.telemetry;
         this.config = new ConfigParser(fileName);
-        this.logger = new Logger(opMode, system);
-    }
-
-    public void setDefaultLoggingServices(LoggingService... services) {
-        LoggingService[] loggingServices = new LoggingService[services.length];
-        for (int i = 0; i < services.length; i++) {
-            loggingServices[i] = services[i];
-        }
-        this.logger.setLoggingServices(loggingServices);
+        this.logger = new Logger(system);
     }
 
     public String getFileName() {
