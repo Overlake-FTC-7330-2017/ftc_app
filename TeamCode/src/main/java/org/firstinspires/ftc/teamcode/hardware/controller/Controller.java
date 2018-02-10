@@ -332,5 +332,7 @@ public class Controller {
         rightBumper.testAndHandle();
         rightStickButton.testAndHandle();
         rightTrigger.testAndHandle();
+        dPadDownShifted.testAndHandle();
+        
     }
 }
