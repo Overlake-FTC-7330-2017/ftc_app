@@ -152,6 +152,9 @@ public class MecanumDriveSystem extends System
         double currentHeading = Math.toRadians(imuSystem.getHeading());
         double headingDiff = initialHeading - currentHeading;
 
+        rightX = scaleJoystickValue(rightX);
+        leftX = scaleJoystickValue(leftX);
+        leftY = scaleJoystickValue(leftY);
 
         double speed = Math.sqrt(leftX * leftX + leftY * leftY);
         double angle = Math.atan2(leftX, leftY) + (Math.PI / 2) + headingDiff;
@@ -164,18 +167,13 @@ public class MecanumDriveSystem extends System
         double backLeft = y - changeOfDirectionSpeed - x;
         double backRight = y + changeOfDirectionSpeed + x;
 
-//        List<Double> powers = Arrays.asList(frontLeft, frontRight, backLeft, backRight);
-//        clampPowers(powers);
+        List<Double> powers = Arrays.asList(frontLeft, frontRight, backLeft, backRight);
+        clampPowers(powers);
 
-        this.motorFrontRight.setPower(Range.clip(frontRight, -1, 1));
-        this.motorBackRight.setPower(Range.clip(backRight, -1, 1));
-        this.motorFrontLeft.setPower(Range.clip(frontLeft - leftX, -1, 1));
-        this.motorBackLeft.setPower(Range.clip(backLeft + leftX, -1, 1));
-
-//        motorFrontLeft.setPower(powers.get(0));
-//        motorFrontRight.setPower(powers.get(1));
-//        motorBackLeft.setPower(powers.get(2));
-//        motorBackRight.setPower(powers.get(3));
+        motorFrontLeft.setPower(powers.get(0));
+        motorFrontRight.setPower(powers.get(1));
+        motorBackLeft.setPower(powers.get(2));
+        motorBackRight.setPower(powers.get(3));
     }
 
     public void resetInitialHeading() {

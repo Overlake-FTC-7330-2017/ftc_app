@@ -332,7 +332,20 @@ public class Controller {
         rightBumper.testAndHandle();
         rightStickButton.testAndHandle();
         rightTrigger.testAndHandle();
-        dPadDownShifted.testAndHandle();
-        
+        aShifted.testAndHandle();
+        bShifted.testAndHandle();
+        xShifted.testAndHandle();
+        yShifted.testAndHandle();;
+        backShifted.testAndHandle();
+        startShifted.testAndHandle();
+        dPadDownShifted.testAndHandle();;
+        dPadUpShifted.testAndHandle();
+        dPadLeftShifted.testAndHandle();
+        dPadRightShifted.testAndHandle();
+        leftStickButtonShifted.testAndHandle();;
+        leftTriggerShifted.testAndHandle();
+        rightBumperShifted.testAndHandle();
+        rightStickButtonShifted.testAndHandle();
+        rightTriggerShifted.testAndHandle();
     }
 }
