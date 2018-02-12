@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.robot.systems.ClawSystemNoMergeConflictPlease;
+import org.firstinspires.ftc.teamcode.robot.systems.ClawSystem;
 import org.firstinspires.ftc.teamcode.robot.systems.ElevatorSystem;
 import org.firstinspires.ftc.teamcode.robot.systems.Eye;
 import org.firstinspires.ftc.teamcode.robot.systems.IMUSystem;
@@ -23,12 +23,12 @@ public abstract class BaseOpMode extends LinearOpMode {
     public Eye eye;
     public ElevatorSystem elevator;
     public PixySystem pixySystem;
-    public ClawSystemNoMergeConflictPlease claw;
+    public ClawSystem claw;
     public ParallelLiftSystem parallelLiftSystem;
     public Logger logger;
 
     public BaseOpMode(String opModeName) {
-        config = new ConfigParser(opModeName + ".omc");
+        this.config = new ConfigParser(opModeName + ".omc");
         this.logger = new Logger(opModeName);
     }
 
@@ -37,7 +37,7 @@ public abstract class BaseOpMode extends LinearOpMode {
         this.imuSystem = new IMUSystem(this);
         this.eye = new Eye(this);
         this.elevator = new ElevatorSystem(this);
-        this.claw = new ClawSystemNoMergeConflictPlease(this);
+        this.claw = new ClawSystem(this);
         this.parallelLiftSystem = new ParallelLiftSystem(this);
         this.pixySystem = null;
     }

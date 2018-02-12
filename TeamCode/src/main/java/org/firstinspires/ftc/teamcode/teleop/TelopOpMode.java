@@ -3,9 +3,8 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.hardware.controller.Controller;
-import org.firstinspires.ftc.teamcode.robot.systems.ClawSystemNoMergeConflictPlease;
+import org.firstinspires.ftc.teamcode.robot.systems.ClawSystem;
 import org.firstinspires.ftc.teamcode.robot.systems.ElevatorSystem;
-import org.firstinspires.ftc.teamcode.robot.systems.IMUSystem;
 import org.firstinspires.ftc.teamcode.robot.systems.MecanumDriveSystem;
 import org.firstinspires.ftc.teamcode.robot.systems.ParallelLiftSystem;
 import org.firstinspires.ftc.teamcode.util.config.ConfigParser;
@@ -22,7 +21,7 @@ public abstract class BaseOpMode extends OpMode {
     protected Controller controller2;
     protected MecanumDriveSystem driveSystem;
     protected ParallelLiftSystem liftSystem;
-    protected ClawSystemNoMergeConflictPlease claw;
+    protected ClawSystem claw;
     protected ElevatorSystem elevator;
     protected Logger logger;
 
@@ -38,7 +37,7 @@ public abstract class BaseOpMode extends OpMode {
         this.driveSystem = new MecanumDriveSystem(this);
 
         this.liftSystem = new ParallelLiftSystem(this);
-        this.claw = new ClawSystemNoMergeConflictPlease(this);
+        this.claw = new ClawSystem(this);
         this.elevator = new ElevatorSystem(this);
         initButtons();
     }

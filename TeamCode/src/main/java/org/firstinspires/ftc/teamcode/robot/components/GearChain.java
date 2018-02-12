@@ -13,7 +13,7 @@ public class GearChain extends Component {
     private double chainRatio;
 
     public GearChain(double... allTeeth) {
-        super("Gear Chain");
+        super("GearChain");
         input = new Gear(allTeeth[0]);
         Gear current = input;
         for (int i = 1; i < allTeeth.length; i++) {

@@ -23,6 +23,7 @@ public class Logger {
     private FileWriter localWriter;
     private String system;
     private boolean shouldLogGlobal;
+    private File logDir;
 
     public Logger(String fileName) {
         this(fileName, true);
@@ -31,14 +32,10 @@ public class Logger {
     public Logger(String fileName, boolean shouldLogGlobal) {
         this.shouldLogGlobal = shouldLogGlobal;
         this.system = fileName;
+
         if (isExternalStorageWriteable()) {
             File appDir = new File(Environment.getExternalStorageDirectory() + "/Overlake_FTC");
-            File logDir = new File(appDir + "/logs");
-            this.logFile = new File(logDir, fileName + ".txt");
-
-            if (shouldLogGlobal) {
-                this.globalLogFile = new File(logDir, "log.txt");
-            }
+            this.logDir = new File(appDir + "/logs");
 
             if (!appDir.exists()) {
                 appDir.mkdir();
@@ -49,8 +46,10 @@ public class Logger {
             }
 
             try {
+                this.logFile = new File(logDir, fileName + ".txt");
                 this.localWriter = new FileWriter(logFile);
                 if (shouldLogGlobal) {
+                    this.globalLogFile = new File(logDir, "log.txt");
                     this.globalWriter = new FileWriter(globalLogFile);
                 }
             } catch (Exception e) {
@@ -63,10 +62,8 @@ public class Logger {
     public void setGlobalLoggingState(boolean shouldLogGlobal) {
         this.shouldLogGlobal = shouldLogGlobal;
         if (shouldLogGlobal) {
-            File appDir = new File(Environment.getExternalStorageDirectory() + "/Overlake_FTC");
-            File logDir = new File(appDir + "/logs");
-            this.globalLogFile = new File(logDir, "log.txt");
             try {
+                this.globalLogFile = new File(this.logDir, "log.txt");
                 this.globalWriter = new FileWriter(globalLogFile);
             } catch (IOException e) {
                 e("Exception", e.toString());
@@ -106,7 +103,7 @@ public class Logger {
         println(tag, "error", data);
     }
 
-    private void println(String tag, String priority, String data) {
+    public void println(String tag, String priority, String data) {
         Date d = new Date();
         String line = d.toString() + " [" + this.system + "] " + "{" + tag + "} " + priority + ": " + data + "\n";
         try {

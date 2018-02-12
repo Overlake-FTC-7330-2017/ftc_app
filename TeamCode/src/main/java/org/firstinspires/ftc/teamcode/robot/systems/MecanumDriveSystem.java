@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.robot.components.GearChain;
 import org.firstinspires.ftc.teamcode.robot.components.GearedMotor;
-import org.firstinspires.ftc.teamcode.util.logger.LoggingService;
 import org.firstinspires.ftc.teamcode.util.ramp.*;
 
 import java.util.Arrays;
@@ -32,7 +31,6 @@ public class MecanumDriveSystem extends System
     /* Constructor */
     public MecanumDriveSystem(OpMode opMode) {
         super(opMode, "MecanumDrive");
-        logger.setLoggingServices(LoggingService.FILE);
 
         imuSystem = new IMUSystem(opMode);
 
@@ -93,7 +91,6 @@ public class MecanumDriveSystem extends System
     }
 
     public void setRunMode(DcMotor.RunMode runMode) {
-        logger.log(String.format("Run Mode: %s", runMode));
         motorFrontLeft.setRunMode(runMode);
         motorFrontRight.setRunMode(runMode);
         motorBackLeft.setRunMode(runMode);
@@ -145,10 +142,6 @@ public class MecanumDriveSystem extends System
     }
 
     public void driveGodMode(float rightX, float rightY, float leftX, float leftY, float coeff) {
-        rightX = scaleJoystickValue(rightX);
-        leftX = scaleJoystickValue(leftX);
-        leftY = scaleJoystickValue(leftY);
-
         double currentHeading = Math.toRadians(imuSystem.getHeading());
         double headingDiff = initialHeading - currentHeading;
 

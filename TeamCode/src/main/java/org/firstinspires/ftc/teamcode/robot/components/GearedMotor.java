@@ -30,7 +30,7 @@ public class GearedMotor extends Component {
     }
 
     public GearedMotor(int pulses, double wheelDiameter, DcMotor motor, double... teeth) {
-        super("Geared Motor");
+        super("GearedMotor");
         this.chain = new GearChain(teeth);
         this.pulses = pulses;
         this.wheelDiameter = wheelDiameter;

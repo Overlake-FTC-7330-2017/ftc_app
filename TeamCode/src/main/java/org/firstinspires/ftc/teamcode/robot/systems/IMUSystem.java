@@ -21,7 +21,6 @@ public class IMUSystem extends System
     /* Constructor */
     public IMUSystem(OpMode opMode){
         super(opMode, "IMUSystem");
-        logger.setLoggingServices(LoggingService.FILE);
 
         this.parameters = new BNO055IMU.Parameters();
         this.parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
