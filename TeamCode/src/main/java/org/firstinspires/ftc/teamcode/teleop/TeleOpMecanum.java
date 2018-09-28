@@ -44,7 +44,7 @@ import org.firstinspires.ftc.teamcode.robot.systems.MecanumDriveSystem;
  */
 
 @TeleOp(name = "TeleOpMecanum", group = "TeleOp")
-public class TeleOpMecanum extends BaseOpMode
+public class TeleOpMecanum extends BaseTeleOpMode
 {
 
     private MecanumDriveSystem driveSystem;

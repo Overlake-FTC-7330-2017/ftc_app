@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.robot.systems.ParallelLiftSystem;
  */
 
 @Autonomous(name = "PitCrewOpMode", group = "Bot")
-public class PitCrewOpMode extends BaseOpMode
+public class PitCrewOpMode extends BaseAutonomousOpMode
 {
 
     public static final int TIME = 1000;

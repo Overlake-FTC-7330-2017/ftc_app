@@ -2,24 +2,18 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.RobotLog;
-
-import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.hardware.controller.TriggerType;
 import org.firstinspires.ftc.teamcode.robot.systems.ClawSystemNoMergeConflictPlease;
 import org.firstinspires.ftc.teamcode.robot.systems.ElevatorSystem;
 import org.firstinspires.ftc.teamcode.robot.systems.ParallelLiftSystem;
-import org.firstinspires.ftc.teamcode.robot.systems.PixySystem;
 import org.firstinspires.ftc.teamcode.util.Handler;
 
 /**
  * Created by jacks on 10/5/2017.
  */
 @TeleOp(name = "ContollerOpMode", group = "TeleOp")
-public class ControllerOpMode extends BaseOpMode
+public class ControllerOpMode extends BaseTeleOpMode
 {
     private ClawSystemNoMergeConflictPlease claw;
     private ElevatorSystem elevator;

@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.sun.tools.javac.comp.Flow;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.robot.systems.ParallelLiftSystem;
 import org.firstinspires.ftc.teamcode.robot.systems.PixySystem;
 
@@ -12,7 +10,7 @@ import org.firstinspires.ftc.teamcode.robot.systems.PixySystem;
  */
 
 @Autonomous(name = "CompetitionOpMode", group = "Bot")
-public class CompetitionOpMode extends BaseOpMode
+public class CompetitionOpMode extends BaseAutonomousOpMode
 {
     private int zone;
     private int inchesToReferenceBoxNonAudience;

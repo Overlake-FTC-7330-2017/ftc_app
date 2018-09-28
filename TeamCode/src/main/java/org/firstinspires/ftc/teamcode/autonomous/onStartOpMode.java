@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  */
 
 @Autonomous(name = "onStartOpMode", group = "Bot")
-public class onStartOpMode extends BaseOpMode
+public class onStartOpMode extends BaseAutonomousOpMode
 {
     public onStartOpMode()
     {

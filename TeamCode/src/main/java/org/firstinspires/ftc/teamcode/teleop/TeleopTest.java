@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.robot.systems.IMUSystem;
 import org.firstinspires.ftc.teamcode.logger.LoggingService;
 
 @TeleOp(name = "TeleOpTest", group = "TeleOp")
-public class TeleopTest extends BaseOpMode
+public class TeleopTest extends BaseTeleOpMode
 {
     private IMUSystem imu;
 

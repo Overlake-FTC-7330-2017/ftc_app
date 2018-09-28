@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.R;
 
 @Autonomous(name = "VuforiaOP", group = "Bot")
 @Disabled
-public class VuforiaOpMode extends BaseOpMode
+public class VuforiaOpMode extends BaseAutonomousOpMode
 {
 
     public VuforiaOpMode()
